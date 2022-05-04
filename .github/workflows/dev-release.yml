@@ -36,12 +36,12 @@ jobs:
           dotnet publish -c Release
         
       - name: Zip signalbox
-      - uses: montudor/action-zip@v1
+        uses: montudor/action-zip@v1
         with:
           args: zip -r signalbox.zip LandOfSignals-Signalbox/bin/Release/net6.0/publish/*
     
       - name: Release
-      - uses: "marvinpinto/action-automatic-releases@latest"
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
