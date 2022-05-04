@@ -48,4 +48,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: false
           title: "Development Build"
-          files: signalbox.zip
+          files: LandOfSignals-Signalbox/bin/Release/net6.0/publish/signalbox.zip
