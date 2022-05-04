@@ -35,10 +35,11 @@ jobs:
           dotnet build --configuration Release
           dotnet publish -c Release
         
-      - name: Zip signalbox
+      - name: Install zip
         uses: montudor/action-zip@v1
-        with:
-          args: zip -r signalbox.zip LandOfSignals-Signalbox/bin/Release/net6.0/publish/*
+      - name: Zip signalbox
+        run: zip -qq -r signalbox.zip *
+        working-directory: LandOfSignals-Signalbox/bin/Release/net6.0/publish
     
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
