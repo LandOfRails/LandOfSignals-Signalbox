@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Release changes
+
+# Controls when the workflow will run
+on:
+  push:
+    paths:
+      - 'LandOfSignals-Signalbox/**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.100
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: |
+          cd LandOfSignals-Signalbox
+          dotnet build --configuration Release
+          dotnet publish -c Release
+        
+      - name: Zip signalbox
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -r signalbox.zip LandOfSignals-Signalbox/bin/Release/net6.0/publish/*
+    
+      - name: Release
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: "Development Build"
+          files: signalbox.zip
