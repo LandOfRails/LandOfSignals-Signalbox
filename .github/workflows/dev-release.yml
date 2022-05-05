@@ -33,7 +33,7 @@ jobs:
         run: |
           cd LandOfSignals-Signalbox
           dotnet build --configuration Release
-          dotnet publish -c Release
+          dotnet publish -c Release --self-contained --runtime win-x64
         
       - name: Install zip
         uses: montudor/action-zip@v1
