@@ -39,7 +39,7 @@ jobs:
         uses: montudor/action-zip@v1
       - name: Zip signalbox
         run: zip -qq -r signalbox.zip *
-        working-directory: LandOfSignals-Signalbox/bin/Release/net6.0/publish
+        working-directory: LandOfSignals-Signalbox/bin/Release/net6.0/win-x64/publish
     
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -48,4 +48,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: false
           title: "Development Build"
-          files: LandOfSignals-Signalbox/bin/Release/net6.0/publish/signalbox.zip
+          files: LandOfSignals-Signalbox/bin/Release/net6.0/win-x64/publish/signalbox.zip
