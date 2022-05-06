@@ -39,32 +39,22 @@ namespace LandOfSignals_Signalbox.Socket
             _clientSocket.Send(toSendLenBytes);
             _clientSocket.Send(toSendBytes);
         }
-        
-        public static string SendReceive(string message)
-        {
-            // Sending
-            var toSendLen = Encoding.ASCII.GetByteCount(message);
-            var toSendBytes = Encoding.ASCII.GetBytes(message);
-            var toSendLenBytes = BitConverter.GetBytes(toSendLen);
-            _clientSocket.Send(toSendLenBytes);
-            _clientSocket.Send(toSendBytes);
-
-            return Receive();
-        }
 
         public static string Receive()
         {
             // Receiving
-            var bytesReceived = new byte[256];
-            int bytes;
-            var received = string.Empty;
-            do
-            {
-                bytes = _clientSocket.Receive(bytesReceived, bytesReceived.Length, 0);
-                received += Encoding.ASCII.GetString(bytesReceived, 0, bytes);
-            }
-            while (bytes > 0);
-            return received;
+            var rcvLenBytes = new byte[4];
+            _clientSocket.Receive(rcvLenBytes);
+            var rcvLen = BitConverter.ToInt32(rcvLenBytes, 0);
+            var rcvBytes = new byte[rcvLen];
+            _clientSocket.Receive(rcvBytes);
+            return Encoding.ASCII.GetString(rcvBytes);
+        }
+
+        public static string SendReceive(string message)
+        {
+            Send(message);
+            return Receive();
         }
 
         private bool ProcessExists(int id)
