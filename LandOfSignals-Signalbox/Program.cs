@@ -27,6 +27,6 @@ app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
-app.Run();
-
 var socketHandler = new SocketHandler();
+
+app.Run();

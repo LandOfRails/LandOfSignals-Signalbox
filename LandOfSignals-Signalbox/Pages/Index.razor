@@ -9,10 +9,13 @@ Test #2 Welcome to your new app.
 
 <button class="btn btn-primary" @onclick="Test">Send</button>
 
+@test
+
 @code
 {
+    string test;
     private void Test()
     {
-        SocketHandler.Send("Hello, world!");
+        test = SocketHandler.SendReceive(Path.GetRandomFileName());
     }
 }

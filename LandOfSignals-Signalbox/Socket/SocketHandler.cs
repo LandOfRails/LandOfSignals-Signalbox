@@ -40,7 +40,7 @@ namespace LandOfSignals_Signalbox.Socket
             _clientSocket.Send(toSendBytes);
         }
         
-        public static void SendReceive(string message)
+        public static string SendReceive(string message)
         {
             // Sending
             var toSendLen = Encoding.ASCII.GetByteCount(message);
@@ -49,7 +49,7 @@ namespace LandOfSignals_Signalbox.Socket
             _clientSocket.Send(toSendLenBytes);
             _clientSocket.Send(toSendBytes);
 
-            Receive();
+            return Receive();
         }
 
         public static string Receive()
