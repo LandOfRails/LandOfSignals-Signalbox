@@ -12,22 +12,30 @@ namespace LandOfSignals_Signalbox.Socket
     public class SocketHandler
     {
         private static System.Net.Sockets.Socket _clientSocket;
-        private readonly int _pid;
+        public static string test;
 
         public SocketHandler()
         {
-
             var serverAddress = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 4343);
-
-            _clientSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            _clientSocket.Connect(serverAddress);
-            _pid = Convert.ToInt32(Receive());
-
-            new Thread(() =>
+            var thread = new Thread(async () =>
             {
-                while (ProcessExists(_pid)) Thread.Sleep(5000);
-                Environment.Exit(0);
+                _clientSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                while (true)
+                {
+                    var task = _clientSocket.ConnectAsync(serverAddress);
+                    if (await Task.WhenAny(task, Task.Delay(TimeSpan.FromSeconds(10))) == task)
+                    {
+                        while (_clientSocket.Connected)
+                        {
+                            var message = Receive();
+                            test = message;
+                        }
+                    }
+                    else Environment.Exit(0);
+                }
             });
+            thread.Start();
         }
 
         public static void Send(string message)
@@ -49,12 +57,6 @@ namespace LandOfSignals_Signalbox.Socket
             var rcvBytes = new byte[rcvLen];
             _clientSocket.Receive(rcvBytes);
             return Encoding.ASCII.GetString(rcvBytes);
-        }
-
-        public static string SendReceive(string message)
-        {
-            Send(message);
-            return Receive();
         }
 
         private bool ProcessExists(int id)
