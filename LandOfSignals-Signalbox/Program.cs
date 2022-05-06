@@ -1,4 +1,7 @@
+using System.Net;
+using System.Net.Sockets;
 using LandOfSignals_Signalbox.Data;
+using LandOfSignals_Signalbox.Socket;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -25,3 +28,5 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+
+var socketHandler = new SocketHandler();

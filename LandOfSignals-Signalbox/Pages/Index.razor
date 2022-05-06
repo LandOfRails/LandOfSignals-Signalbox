@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using LandOfSignals_Signalbox.Socket
 
 <PageTitle>Index</PageTitle>
 
@@ -6,4 +7,12 @@
 
 Test #2 Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<button class="btn btn-primary" @onclick="Test">Send</button>
+
+@code
+{
+    private void Test()
+    {
+        SocketHandler.Send("Hello, world!");
+    }
+}
