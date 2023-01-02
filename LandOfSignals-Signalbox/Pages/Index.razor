@@ -5,5 +5,13 @@
 
 <MudText Typo="Typo.h3" GutterBottom="true">Socket test</MudText>
 
-<MudButton OnClick="(@SocketHandler.Send("goil"))">Send</MudButton>
+<MudButton OnClick="Send">Send</MudButton>
 <MudText>@SocketHandler.test</MudText>
+
+@code
+{
+    public void Send()
+    {
+        SocketHandler.Send("goil");
+    }
+}
