@@ -1,11 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net;
-using System.Net.Mime;
 using System.Net.Sockets;
 using System.Text;
-using System.Timers;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Timer = System.Timers.Timer;
 
 namespace LandOfSignals_Signalbox.Socket
 {

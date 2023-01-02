@@ -3,11 +3,7 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<MudText Typo="Typo.h3" GutterBottom="true">Socket test</MudText>
 
-@SocketHandler.test
-
-@code
-{
-    
-}
+<MudButton OnClick="(@SocketHandler.Send("goil"))">Send</MudButton>
+<MudText>@SocketHandler.test</MudText>
