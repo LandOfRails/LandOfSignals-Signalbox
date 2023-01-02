@@ -34,17 +34,8 @@
         _drawerOpen = !_drawerOpen;
     }
 
-    private bool _isDarkMode;
+    private bool _isDarkMode = true;
     private MudThemeProvider _mudThemeProvider;
-    
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
-            StateHasChanged();
-        }
-    }
 
     private ThemeManagerTheme _themeManager = new();
     public bool _themeManagerOpen;
