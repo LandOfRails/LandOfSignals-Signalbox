@@ -13,4 +13,4 @@
 
 Author: [MarkenJaden](https://github.com/MarkenJaden)
 
-Nothing in this project is usable in any way. It does not contain any fancy UI for a planned signalbox yet.
+Nothing in this repo is usable in any way. It does not contain any fancy UI for a planned signalbox yet.
