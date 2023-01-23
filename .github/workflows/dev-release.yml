@@ -35,21 +35,28 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
+          
       - name: Install workload
-        run: dotnet workload install wasm-tools 
+        run: dotnet workload install wasm-tools
+        
       - name: Install dependencies
         run: dotnet restore
-      - name: Build
-        run: |
-          cd LandOfSignals-Signalbox
-          dotnet build -p:CI=true -c Release
-          dotnet publish -p:CI=true -c Release --self-contained --runtime win-x64
+        
+      - name: Build Debug
+        run: dotnet build LandOfSignals-Signalbox.sln -p:CI=true -c Debug
+        
+      - name: Build Release
+        run: dotnet build LandOfSignals-Signalbox.sln -p:CI=true -c Release -bl
+        
+      - name: Publish
+        run: dotnet publish -o ./publish -r win-x64 -c Release --self-contained LandOfSignals-Signalbox/LandOfSignals-Signalbox.csproj
         
       - name: Install zip
         uses: montudor/action-zip@v1
+        
       - name: Zip signalbox
         run: zip -qq -r signalbox.zip *
-        working-directory: LandOfSignals-Signalbox/bin/Release/net6.0/win-x64/publish
+        working-directory: publish
     
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
