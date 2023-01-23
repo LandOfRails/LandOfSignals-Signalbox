@@ -43,10 +43,10 @@ jobs:
         run: dotnet restore
         
       - name: Build Debug
-        run: dotnet build LandOfSignals-Signalbox.sln -p:CI=true -c Debug
+        run: dotnet build LandOfSignals-Signalbox.sln -c Debug
         
       - name: Build Release
-        run: dotnet build LandOfSignals-Signalbox.sln -p:CI=true -c Release -bl
+        run: dotnet build LandOfSignals-Signalbox.sln -c Release -bl
         
       - name: Publish
         run: dotnet publish -o ./publish -r win-x64 -c Release --self-contained LandOfSignals-Signalbox/LandOfSignals-Signalbox.csproj
