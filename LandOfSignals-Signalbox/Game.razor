@@ -1,0 +1,16 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Web
+@using SkiaSharp.Views.Blazor
+
+<PageTitle>Index</PageTitle>
+
+<SKGLView IgnorePixelScaling="true"
+          EnableRenderLoop="true"
+          OnPaintSurface="OnPaintSurface"
+          oncontextmenu="return false"
+          @onpointerdown="OnPointerDown"
+          @onpointermove="OnPointerMove"
+          @onpointerup="OnPointerUp"
+          @ontouchstart="OnTouchStart"
+          @ontouchmove="OnTouchMove"
+          @onwheel="OnMouseWheel" />

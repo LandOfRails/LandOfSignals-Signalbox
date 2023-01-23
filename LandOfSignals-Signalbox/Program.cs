@@ -1,35 +1,22 @@
-using LandOfSignals_Signalbox.Socket;
-using Microsoft.AspNetCore.Hosting.StaticWebAssets;
-using MudBlazor.Services;
+﻿using Blazored.LocalStorage;
+using LandOfSignals_Signalbox;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Signalbox.Engine.Storage;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<Game>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
 
-StaticWebAssetsLoader.UseStaticWebAssets(builder.Environment, builder.Configuration);
+builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new(builder.HostEnvironment.BaseAddress) });
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-builder.Services.AddMudServices();
+var host = builder.Build();
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+// Dodgy!!
+if (DI.ServiceLocator.GetService<ISignalboxStorage>() is BlazorSignalboxStorage storage)
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    storage.AspNetCoreServices = host.Services;
 }
 
-app.UseHttpsRedirection();
-
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
-
-var socketHandler = new SocketHandler();
-
-app.Run();
+await host.RunAsync();

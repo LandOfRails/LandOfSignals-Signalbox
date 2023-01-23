@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Signalbox.SourceGenerator": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\LandOfSignals-Signalbox\\LandOfSignals-Signalbox.csproj"
+    }
+  }
+}
