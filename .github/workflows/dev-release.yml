@@ -7,6 +7,14 @@ on:
   push:
     paths:
       - 'LandOfSignals-Signalbox/**'
+      - 'Signalbox.Engine/**'
+      - 'Signalbox.Instrumentation/**'
+      - 'Signalbox.Rendering/**'
+      - 'Signalbox.Rendering.Skia/**'
+      - 'Signalbox.SourceGenerator/**'
+      - 'Directory.Build.props'
+      - 'Directory.Build.targets'
+      - 'Directory.Packages.props'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -27,12 +35,14 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
+      - name: Install workload
+        run: dotnet workload install wasm-tools 
       - name: Install dependencies
         run: dotnet restore
       - name: Build
         run: |
           cd LandOfSignals-Signalbox
-          dotnet build --configuration Release
+          dotnet build -c Release
           dotnet publish -c Release --self-contained --runtime win-x64
         
       - name: Install zip
