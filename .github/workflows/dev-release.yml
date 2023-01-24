@@ -46,14 +46,14 @@ jobs:
         run: dotnet build LandOfSignals-Signalbox.sln -c Release -bl
         
       - name: Publish
-        run: dotnet publish -r win-x64 -c Release --self-contained LandOfSignals-Signalbox/LandOfSignals-Signalbox.csproj
+        run: dotnet publish -r win-x64 -c Release --self-contained LandOfSignals-Signalbox/Server/LandOfSignals-Signalbox.Server.csproj
         
       - name: Install zip
         uses: montudor/action-zip@v1
         
       - name: Zip signalbox
         run: zip -qq -r signalbox.zip *
-        working-directory: LandOfSignals-Signalbox/bin/Release/net6.0/win-x64/publish
+        working-directory: LandOfSignals-Signalbox/Server/bin/Release/net6.0/win-x64/publish
     
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -62,4 +62,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: false
           title: "Development Build"
-          files: LandOfSignals-Signalbox/bin/Release/net6.0/win-x64/publish/signalbox.zip
+          files: LandOfSignals-Signalbox/Server/bin/Release/net6.0/win-x64/publish/signalbox.zip
