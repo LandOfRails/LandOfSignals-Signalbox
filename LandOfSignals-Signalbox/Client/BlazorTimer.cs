@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Signalbox.Engine.Utilities;
 
-namespace LandOfSignals_Signalbox;
+namespace LandOfSignals_Signalbox.Client;
 
 public class BlazorTimer : ITimer
 {
@@ -23,7 +23,7 @@ public class BlazorTimer : ITimer
     public void Start()
     {
         Stop();
-        _cts = new();
+        _cts = new CancellationTokenSource();
         _ = StartTimer();
     }
 

@@ -24,7 +24,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signalbox.Instrumentation",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Signalbox.SourceGenerator", "Signalbox.SourceGenerator\Signalbox.SourceGenerator.csproj", "{34B02356-3EF1-496B-AE87-C6A261AF64BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LandOfSignals-Signalbox", "LandOfSignals-Signalbox\LandOfSignals-Signalbox.csproj", "{0FEBA410-1006-4B11-9A33-F1CC3E5715FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LandOfSignals-Signalbox.Server", "LandOfSignals-Signalbox\Server\LandOfSignals-Signalbox.Server.csproj", "{C676ADA9-0738-4166-9E49-1041B733B1E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LandOfSignals-Signalbox.Client", "LandOfSignals-Signalbox\Client\LandOfSignals-Signalbox.Client.csproj", "{D6C51AB8-8E2A-4F62-9FEF-FA435E4FDA2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LandOfSignals-Signalbox.Shared", "LandOfSignals-Signalbox\Shared\LandOfSignals-Signalbox.Shared.csproj", "{F4AC1B1D-431C-47CA-9BC8-F8D19B5AE5BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,10 +56,18 @@ Global
 		{34B02356-3EF1-496B-AE87-C6A261AF64BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34B02356-3EF1-496B-AE87-C6A261AF64BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34B02356-3EF1-496B-AE87-C6A261AF64BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FEBA410-1006-4B11-9A33-F1CC3E5715FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FEBA410-1006-4B11-9A33-F1CC3E5715FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FEBA410-1006-4B11-9A33-F1CC3E5715FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FEBA410-1006-4B11-9A33-F1CC3E5715FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C676ADA9-0738-4166-9E49-1041B733B1E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C676ADA9-0738-4166-9E49-1041B733B1E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C676ADA9-0738-4166-9E49-1041B733B1E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C676ADA9-0738-4166-9E49-1041B733B1E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6C51AB8-8E2A-4F62-9FEF-FA435E4FDA2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6C51AB8-8E2A-4F62-9FEF-FA435E4FDA2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6C51AB8-8E2A-4F62-9FEF-FA435E4FDA2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6C51AB8-8E2A-4F62-9FEF-FA435E4FDA2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4AC1B1D-431C-47CA-9BC8-F8D19B5AE5BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4AC1B1D-431C-47CA-9BC8-F8D19B5AE5BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4AC1B1D-431C-47CA-9BC8-F8D19B5AE5BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4AC1B1D-431C-47CA-9BC8-F8D19B5AE5BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,7 +78,9 @@ Global
 		{14E3D0CE-8319-4B63-8223-E2F6C422F076} = {5B68BEBD-7E5A-4DF5-B585-924D8644BD86}
 		{FD09BCF2-27BD-422D-B5F1-DF986B2FFB7E} = {5B68BEBD-7E5A-4DF5-B585-924D8644BD86}
 		{34B02356-3EF1-496B-AE87-C6A261AF64BF} = {3D340E00-DCF1-4AF3-A109-1645E6211945}
-		{0FEBA410-1006-4B11-9A33-F1CC3E5715FA} = {024D51A0-4E30-498D-B6C9-195AEE178C0E}
+		{C676ADA9-0738-4166-9E49-1041B733B1E8} = {024D51A0-4E30-498D-B6C9-195AEE178C0E}
+		{D6C51AB8-8E2A-4F62-9FEF-FA435E4FDA2A} = {024D51A0-4E30-498D-B6C9-195AEE178C0E}
+		{F4AC1B1D-431C-47CA-9BC8-F8D19B5AE5BE} = {024D51A0-4E30-498D-B6C9-195AEE178C0E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {735FB670-E73E-429B-8232-FF5952B85CB7}

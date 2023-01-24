@@ -7,11 +7,11 @@ using Signalbox.Rendering.UIFramework;
 using SkiaSharp;
 using SkiaSharp.Views.Blazor;
 
-namespace LandOfSignals_Signalbox;
+namespace LandOfSignals_Signalbox.Client;
 
 public partial class Game
 {
-    private ISignalbox _signalbox = null!;
+    private ISignalbox _game = null!;
     private IInteractionManager _interactionManager = null!;
 
     private readonly PerSecondTimedStat _fps = InstrumentationBag.Add<PerSecondTimedStat>("SkiaSharp-OnPaintSurfaceFPS");
@@ -19,23 +19,23 @@ public partial class Game
 
     protected override async Task OnInitializedAsync()
     {
-        _signalbox = DI.ServiceLocator.GetService<ISignalbox>();
+        _game = DI.ServiceLocator.GetService<ISignalbox>();
         _interactionManager = DI.ServiceLocator.GetService<IInteractionManager>();
 
-        await _signalbox.InitializeAsync(200, 200);
+        await _game.InitializeAsync(200, 200);
     }
 
     private void OnPaintSurface(SKPaintGLSurfaceEventArgs e)
     {
         using (_renderTime.Measure())
         {
-            _signalbox.SetSize(e.Info.Width, e.Info.Height);
+            _game.SetSize(e.Info.Width, e.Info.Height);
             if (e.Surface.Context is GRContext context && context != null)
             {
                 // Set the context so all rendering happens in the same place
-                _signalbox.SetContext(new SKContextWrapper(context));
+                _game.SetContext(new SKContextWrapper(context));
             }
-            _signalbox.Render(new SKCanvasWrapper(e.Surface.Canvas));
+            _game.Render(new SKCanvasWrapper(e.Surface.Canvas));
         }
 
         _fps.Update();
@@ -43,29 +43,30 @@ public partial class Game
 
     private void OnPointerDown(PointerEventArgs e)
     {
-        if (e.Buttons == 1)
+        switch (e.Buttons)
         {
-            _interactionManager.PointerClick((int)e.OffsetX, (int)e.OffsetY);
-        }
-        else if (e.Buttons == 2)
-        {
-            _interactionManager.PointerAlternateClick((int)e.OffsetX, (int)e.OffsetY);
+            case 1:
+                _interactionManager.PointerClick((int)e.OffsetX, (int)e.OffsetY);
+                break;
+            case 2:
+                _interactionManager.PointerAlternateClick((int)e.OffsetX, (int)e.OffsetY);
+                break;
         }
     }
 
     private void OnPointerMove(PointerEventArgs e)
     {
-        if (e.Buttons == 1)
+        switch (e.Buttons)
         {
-            _interactionManager.PointerDrag((int)e.OffsetX, (int)e.OffsetY);
-        }
-        else if (e.Buttons == 2)
-        {
-            _interactionManager.PointerAlternateDrag((int)e.OffsetX, (int)e.OffsetY);
-        }
-        else
-        {
-            _interactionManager.PointerMove((int)e.OffsetX, (int)e.OffsetY);
+            case 1:
+                _interactionManager.PointerDrag((int)e.OffsetX, (int)e.OffsetY);
+                break;
+            case 2:
+                _interactionManager.PointerAlternateDrag((int)e.OffsetX, (int)e.OffsetY);
+                break;
+            default:
+                _interactionManager.PointerMove((int)e.OffsetX, (int)e.OffsetY);
+                break;
         }
     }
 
@@ -92,13 +93,14 @@ public partial class Game
         if (touch is null)
             return;
 
-        if (e.Touches.Length == 1)
+        switch (e.Touches.Length)
         {
-            _interactionManager.PointerDrag((int)touch.ClientX, (int)touch.ClientY);
-        }
-        else if (e.Touches.Length == 2)
-        {
-            _interactionManager.PointerAlternateDrag((int)touch.ClientX, (int)touch.ClientY);
+            case 1:
+                _interactionManager.PointerDrag((int)touch.ClientX, (int)touch.ClientY);
+                break;
+            case 2:
+                _interactionManager.PointerAlternateDrag((int)touch.ClientX, (int)touch.ClientY);
+                break;
         }
     }
 

@@ -1,12 +1,12 @@
 ﻿using Blazored.LocalStorage;
 using Signalbox.Engine.Storage;
 
-namespace LandOfSignals_Signalbox;
+namespace LandOfSignals_Signalbox.Client;
 
-public class BlazorSignalboxStorage : ISignalboxStorage
+public class BlazorGameStorage : ISignalboxStorage
 {
     private ISyncLocalStorageService? _syncLocalStorageService;
-    private readonly Dictionary<string, string> _lastSavedValue = new();
+    private readonly Dictionary<string, string> _lastSavedValue = new Dictionary<string, string>();
 
     public IServiceProvider? AspNetCoreServices { get; set; }
 

@@ -10,8 +10,17 @@
     overflow: hidden;
     height: -webkit-fill-available;
     min-height: -webkit-fill-available;
-    background-color: #58c467;
+    background-color: #a5a5a5;
     user-select: none;
+}
+
+#banner {
+    position: absolute;
+    top: 30vh;
+    width: 100%;
+    text-align: center;
+    background-size: 420px;
+    padding: 50px 0px 50px 0px;
 }
 
 a {
