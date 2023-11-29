@@ -11,18 +11,18 @@ public class Signal : SingleTrack, IUpdatableEntity
     public int TemporaryStopCounter { get; set; }
 
     public override string Identifier
-        => $"{base.Identifier}.{this.SignalState}";
+        => $"{base.Identifier}.{SignalState}";
 
     public override bool HasMultipleStates => true;
 
-    public Signal() : base()
+    public Signal()
     {
-        this.SignalState = SignalState.Go;
+        SignalState = SignalState.Go;
     }
 
     public override void NextState()
     {
-        this.SignalState = this.SignalState switch
+        SignalState = SignalState switch
         {
             SignalState.Go => SignalState.TemporaryStop,
             SignalState.TemporaryStop => SignalState.Stop,
@@ -35,16 +35,16 @@ public class Signal : SingleTrack, IUpdatableEntity
 
     public void Update()
     {
-        if (this.SignalState == SignalState.TemporaryStop &&
-            ++this.TemporaryStopCounter >= TemporaryStopTime)
+        if (SignalState == SignalState.TemporaryStop &&
+            ++TemporaryStopCounter >= TemporaryStopTime)
         {
-            this.SignalState = SignalState.Go;
-            this.TemporaryStopCounter = 0;
+            SignalState = SignalState.Go;
+            TemporaryStopCounter = 0;
 
             OnChanged();
         }
     }
 
     public override bool IsBlocked()
-        => this.SignalState != SignalState.Go;
+        => SignalState != SignalState.Go;
 }

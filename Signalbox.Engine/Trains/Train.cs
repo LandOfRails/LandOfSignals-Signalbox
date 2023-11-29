@@ -11,23 +11,23 @@ public class Train : IMovable, INotifyPropertyChanged, ISeeded
 
     public Train(int seed)
     {
-        this.Seed = seed;
-        this.UniqueID = Guid.NewGuid();
-        this.Name = TrainNames.GetName(seed);
-        this.RelativeLeft = 0.5f;
-        this.RelativeTop = 0.5f;
+        Seed = seed;
+        UniqueID = Guid.NewGuid();
+        Name = TrainNames.GetName(seed);
+        RelativeLeft = 0.5f;
+        RelativeTop = 0.5f;
     }
 
     private Train(Train other)
     {
-        this.Seed = other.Seed;
-        this.UniqueID = other.UniqueID;
-        this.Column = other.Column;
-        this.Name = other.Name;
-        this.Row = other.Row;
-        this.Angle = other.Angle;
-        this.RelativeLeft = other.RelativeLeft;
-        this.RelativeTop = other.RelativeTop;
+        Seed = other.Seed;
+        UniqueID = other.UniqueID;
+        Column = other.Column;
+        Name = other.Name;
+        Row = other.Row;
+        Angle = other.Angle;
+        RelativeLeft = other.RelativeLeft;
+        RelativeTop = other.RelativeTop;
     }
 
     public virtual Guid UniqueID { get; }
@@ -48,7 +48,7 @@ public class Train : IMovable, INotifyPropertyChanged, ISeeded
     {
         while (angle < 0) angle += 360;
         while (angle > 360) angle -= 360;
-        this.Angle = angle;
+        Angle = angle;
     }
 
     public Train Clone()
@@ -56,24 +56,24 @@ public class Train : IMovable, INotifyPropertyChanged, ISeeded
         return new(this);
     }
 
-    public void Start() => this.Stopped = false;
+    public void Start() => Stopped = false;
 
-    public void Stop() => this.Stopped = true;
+    public void Stop() => Stopped = true;
 
     internal void Pause() => _collisionAhead = true;
 
     internal void Resume() => _collisionAhead = false;
 
-    public override string ToString() => $"Train {this.UniqueID} [Column: {this.Column} | Row: {this.Row} | Left: {this.RelativeLeft} | Top: {this.RelativeTop} | Angle: {this.Angle}]";
+    public override string ToString() => $"Train {UniqueID} [Column: {Column} | Row: {Row} | Left: {RelativeLeft} | Top: {RelativeTop} | Angle: {Angle}]";
 
-    internal TrainPosition GetPosition() => new(this.Column, this.Row, this.RelativeLeft, this.RelativeTop, this.Angle, 0);
+    internal TrainPosition GetPosition() => new(Column, Row, RelativeLeft, RelativeTop, Angle, 0);
 
     public void ApplyStep(TrainPosition newPosition)
     {
-        this.Column = newPosition.Column;
-        this.Row = newPosition.Row;
-        this.Angle = newPosition.Angle;
-        this.RelativeLeft = newPosition.RelativeLeft;
-        this.RelativeTop = newPosition.RelativeTop;
+        Column = newPosition.Column;
+        Row = newPosition.Row;
+        Angle = newPosition.Angle;
+        RelativeLeft = newPosition.RelativeLeft;
+        RelativeTop = newPosition.RelativeTop;
     }
 }

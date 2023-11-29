@@ -6,13 +6,13 @@ namespace Signalbox.Engine.Tracks.SingleTrack;
 [DebuggerDisplay("{Direction,nq}")]
 public class SingleTrack : Track
 {
-    public override string Identifier => this.Direction.ToString();
+    public override string Identifier => Direction.ToString();
 
     public SingleTrackDirection Direction { get; set; }
 
     public override void Move(TrainPosition position)
     {
-        switch (this.Direction)
+        switch (Direction)
         {
             case SingleTrackDirection.Horizontal: TrainMovement.MoveHorizontal(position); break;
             case SingleTrackDirection.Vertical: TrainMovement.MoveVertical(position); break;
@@ -25,7 +25,7 @@ public class SingleTrack : Track
     }
 
     public override bool IsConnectedRight()
-        => this.Direction switch
+        => Direction switch
         {
             SingleTrackDirection.RightDown => true,
             SingleTrackDirection.RightUp => true,
@@ -34,7 +34,7 @@ public class SingleTrack : Track
         };
 
     public override bool IsConnectedDown()
-        => this.Direction switch
+        => Direction switch
         {
             SingleTrackDirection.RightDown => true,
             SingleTrackDirection.LeftDown => true,
@@ -43,7 +43,7 @@ public class SingleTrack : Track
         };
 
     public override bool IsConnectedLeft()
-        => this.Direction switch
+        => Direction switch
         {
             SingleTrackDirection.LeftDown => true,
             SingleTrackDirection.LeftUp => true,
@@ -52,7 +52,7 @@ public class SingleTrack : Track
         };
 
     public override bool IsConnectedUp()
-        => this.Direction switch
+        => Direction switch
         {
             SingleTrackDirection.LeftUp => true,
             SingleTrackDirection.RightUp => true,
@@ -62,19 +62,19 @@ public class SingleTrack : Track
 
     public void SetBestTrackDirection(bool ignoreHappyness)
     {
-        SingleTrackDirection newDirection = GetBestTrackDirection(ignoreHappyness);
+        var newDirection = GetBestTrackDirection(ignoreHappyness);
 
-        if (this.Direction != newDirection)
+        if (Direction != newDirection)
         {
-            this.Direction = newDirection;
+            Direction = newDirection;
             RefreshNeighbors(false);
         }
     }
 
     public virtual SingleTrackDirection GetBestTrackDirection(bool ignoreHappyness)
     {
-        TrackNeighbors neighbors = GetPotentialNeighbors();
-        SingleTrackDirection newDirection = this.Direction;
+        var neighbors = GetPotentialNeighbors();
+        var newDirection = Direction;
 
         if (neighbors.Count > 2)
         {
@@ -86,7 +86,7 @@ public class SingleTrack : Track
         {
             newDirection = SingleTrackDirection.Horizontal;
         }
-        else if (!this.Happy || ignoreHappyness)
+        else if (!Happy || ignoreHappyness)
         {
             // 2-way connections
             if (neighbors.Up != null && neighbors.Left != null)
@@ -121,7 +121,7 @@ public class SingleTrack : Track
 
     public void RefreshNeighbors(bool ignoreHappyness)
     {
-        TrackNeighbors neighbors = GetAllNeighbors();
+        var neighbors = GetAllNeighbors();
         (neighbors.Up as SingleTrack)?.SetBestTrackDirection(ignoreHappyness);
         (neighbors.Down as SingleTrack)?.SetBestTrackDirection(ignoreHappyness);
         (neighbors.Right as SingleTrack)?.SetBestTrackDirection(ignoreHappyness);
@@ -130,13 +130,13 @@ public class SingleTrack : Track
 
     private TrackNeighbors GetPotentialNeighbors()
     {
-        _ = this.TrackLayout ?? throw new InvalidOperationException("Game board can't be null");
+        _ = TrackLayout ?? throw new InvalidOperationException("Game board can't be null");
 
         return new(
-            this.TrackLayout.TryGet(this.Column - 1, this.Row, out Track? left) && left.CanConnectRight() ? left : null,
-            this.TrackLayout.TryGet(this.Column, this.Row - 1, out Track? up) && up.CanConnectDown() ? up : null,
-            this.TrackLayout.TryGet(this.Column + 1, this.Row, out Track? right) && right.CanConnectLeft() ? right : null,
-            this.TrackLayout.TryGet(this.Column, this.Row + 1, out Track? down) && down.CanConnectUp() ? down : null
+            TrackLayout.TryGet(Column - 1, Row, out Track? left) && left.CanConnectRight() ? left : null,
+            TrackLayout.TryGet(Column, Row - 1, out Track? up) && up.CanConnectDown() ? up : null,
+            TrackLayout.TryGet(Column + 1, Row, out Track? right) && right.CanConnectLeft() ? right : null,
+            TrackLayout.TryGet(Column, Row + 1, out Track? down) && down.CanConnectUp() ? down : null
             );
     }
 
@@ -154,7 +154,7 @@ public class SingleTrack : Track
     {
         // We need to assume that we've already been removed from our parent, but before we go,
         // tell the neighbours we won't be back in the morning
-        if (this.TrackLayout != null)
+        if (TrackLayout != null)
         {
             RefreshNeighbors(true);
         }

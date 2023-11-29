@@ -20,7 +20,7 @@ public class CrossTrackSerializer : IEntitySerializer
             return false;
         }
 
-        var track = new CrossTrack()
+        var track = new CrossTrack
         {
             Happy = bool.Parse(bits[1])
         };

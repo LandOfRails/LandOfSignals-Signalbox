@@ -29,11 +29,11 @@ public class BlazorTimer : ITimer
 
     private async Task StartTimer()
     {
-        var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(this.Interval));
+        var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(Interval));
         while (await timer.WaitForNextTickAsync(_cts!.Token))
         {
-            long time = _stopwatch.ElapsedMilliseconds;
-            this.TimeSinceLastTick = time - _lastTick;
+            var time = _stopwatch.ElapsedMilliseconds;
+            TimeSinceLastTick = time - _lastTick;
             _lastTick = time;
             Elapsed?.Invoke(this, EventArgs.Empty);
         }

@@ -33,27 +33,27 @@ public class SingleTrackFactory : IStaticEntityFactory<Track>
 
     public IEnumerable<Track> GetPossibleReplacements(int column, int row, Track track)
     {
-        yield return new SingleTrack() { Direction = SingleTrackDirection.Horizontal };
+        yield return new SingleTrack { Direction = SingleTrackDirection.Horizontal };
         var neighbours = track.GetAllNeighbors();
         if (neighbours.Up is not null || neighbours.Down is not null)
         {
-            yield return new SingleTrack() { Direction = SingleTrackDirection.Vertical };
+            yield return new SingleTrack { Direction = SingleTrackDirection.Vertical };
         }
         if (neighbours.Up is not null && neighbours.Left is not null)
         {
-            yield return new SingleTrack() { Direction = SingleTrackDirection.LeftUp };
+            yield return new SingleTrack { Direction = SingleTrackDirection.LeftUp };
         }
         if (neighbours.Up is not null && neighbours.Right is not null)
         {
-            yield return new SingleTrack() { Direction = SingleTrackDirection.RightUp };
+            yield return new SingleTrack { Direction = SingleTrackDirection.RightUp };
         }
         if (neighbours.Down is not null && neighbours.Left is not null)
         {
-            yield return new SingleTrack() { Direction = SingleTrackDirection.LeftDown };
+            yield return new SingleTrack { Direction = SingleTrackDirection.LeftDown };
         }
         if (neighbours.Down is not null && neighbours.Right is not null)
         {
-            yield return new SingleTrack() { Direction = SingleTrackDirection.RightDown };
+            yield return new SingleTrack { Direction = SingleTrackDirection.RightDown };
         }
     }
 }

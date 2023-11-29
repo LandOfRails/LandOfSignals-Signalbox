@@ -40,35 +40,23 @@ public class TrainInfoScreen : PanelBase
         _trainPainter = trainPainter;
         _trainManager.Changed += (_, _) =>
         {
-            this.Visible = _trainManager.CurrentTrain is not null;
+            Visible = _trainManager.CurrentTrain is not null;
             OnChanged();
         };
         _signalboxManager.Changed += (_, _) => OnChanged();
         _trainManager.CurrentTrainPropertyChanged += (_, _) => OnChanged();
 
-        _controlButton = new(20, new ButtonBase[]
-            {
-                    CreateButton(Picture.Play, () => _trainManager.CurrentTrain?.Stopped != true, () => _trainManager.CurrentTrain?.Start()),
-                    CreateButton(Picture.Pause, () => _trainManager.CurrentTrain?.Stopped == true, () => _trainManager.CurrentTrain?.Stop()),
-            });
+        _controlButton = new(20, CreateButton(Picture.Play, () => _trainManager.CurrentTrain?.Stopped != true, () => _trainManager.CurrentTrain?.Start()), CreateButton(Picture.Pause, () => _trainManager.CurrentTrain?.Stopped == true, () => _trainManager.CurrentTrain?.Stop()));
 
-        _actionButton = new(20, new ButtonBase[]
-            {
-                CreateButton(Picture.Eye, () => _trainManager.CurrentTrain?.Follow ?? false, () => _trainManager.ToggleFollow(_trainManager.CurrentTrain!)),
-                    CreateButton(Picture.Trash, () => false, () =>
-                    {
-                        _movableLayout.Remove(_trainManager.CurrentTrain!);
-                        Close();
-                    }),
-            });
+        _actionButton = new(20, CreateButton(Picture.Eye, () => _trainManager.CurrentTrain?.Follow ?? false, () => _trainManager.ToggleFollow(_trainManager.CurrentTrain!)), CreateButton(Picture.Trash, () => false, () =>
+        {
+            _movableLayout.Remove(_trainManager.CurrentTrain!);
+            Close();
+        }));
 
-        _trainSelectionButton = new(20, new ButtonBase[]
-            {
-                    CreateButton(Picture.Left, () => false, () => _trainManager.PreviousTrain()),
-                    CreateButton(Picture.Right, () => false, () => _trainManager.NextTrain())
-            });
+        _trainSelectionButton = new(20, CreateButton(Picture.Left, () => false, () => _trainManager.PreviousTrain()), CreateButton(Picture.Right, () => false, () => _trainManager.NextTrain()));
 
-        this.Visible = _trainManager.CurrentTrain is not null;
+        Visible = _trainManager.CurrentTrain is not null;
     }
 
     private static ButtonBase CreateButton(Picture picture, Func<bool> isActive, Action onClick)
@@ -105,7 +93,7 @@ public class TrainInfoScreen : PanelBase
 
     protected override void Render(ICanvas canvas)
     {
-        Train train = _trainManager.CurrentTrain ?? throw new NullReferenceException("Current train is null so we shouldn't be rendering");
+        var train = _trainManager.CurrentTrain ?? throw new NullReferenceException("Current train is null so we shouldn't be rendering");
 
         using (canvas.Scope())
         {

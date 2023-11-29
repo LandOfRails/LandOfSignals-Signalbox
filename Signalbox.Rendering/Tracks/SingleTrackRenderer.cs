@@ -76,8 +76,6 @@ public class SingleTrackRenderer : SpecializedEntityRenderer<SingleTrack, Track>
             case SingleTrackDirection.LeftDown:
                 DrawCorner(canvas, track);
                 break;
-            default:
-                break;
         }
     }
 

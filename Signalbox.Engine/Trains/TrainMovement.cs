@@ -28,8 +28,8 @@ public static class TrainMovement
     public static (float x, float y) AngleToPoints(double angle, float radius)
     {
         // Sin for Y, Cos for X, multiply them by the radius and we are done!
-        float y = (float)(radius * Math.Sin(angle));
-        float x = (float)(radius * Math.Cos(angle));
+        var y = (float)(radius * Math.Sin(angle));
+        var x = (float)(radius * Math.Cos(angle));
 
         return (x, y);
     }
@@ -50,7 +50,7 @@ public static class TrainMovement
     {
         // Find the angle within the tracks circle using the current position
         // This *should* be perpendicular to angle
-        double currentAngle = TrainMovement.PointsToAngle(position.RelativeLeft - Math.Abs(quadrantPositionX), position.RelativeTop - Math.Abs(quadrantPositionY));
+        var currentAngle = PointsToAngle(position.RelativeLeft - Math.Abs(quadrantPositionX), position.RelativeTop - Math.Abs(quadrantPositionY));
 
         float distance;
         // In order to figure out if we are moving clockwise or counter-clockwise, look at the angle of the train
@@ -59,23 +59,23 @@ public static class TrainMovement
             // We are facing left/up, so we move counter clockwise, with a minimum angle of 90
             (currentAngle, distance) = MoveCounterClockwise(currentAngle, position.Distance, DegreeToRad(minimumAngle));
 
-            position.Angle = (float)TrainMovement.RadToDegree(currentAngle) - 90.0f;
+            position.Angle = (float)RadToDegree(currentAngle) - 90.0f;
         }
         else
         {
             // We are NOT facing left/up, so we move clockwise, with a maximum angle of 180, Math.PI
             (currentAngle, distance) = MoveClockwise(currentAngle, position.Distance, DegreeToRad(maximumAngle));
 
-            position.Angle = (float)TrainMovement.RadToDegree(currentAngle) + 90.0f;
+            position.Angle = (float)RadToDegree(currentAngle) + 90.0f;
         }
 
         position.Distance = distance;
 
         // Double check to keep our angle in range, this makes our angle checks easier!:
-        position.Angle = TrainMovement.KeepWithin0and360(position.Angle);
+        position.Angle = KeepWithin0and360(position.Angle);
 
         // Find our new position on the track
-        (position.RelativeLeft, position.RelativeTop) = TrainMovement.AngleToPoints(currentAngle, 0.5f);
+        (position.RelativeLeft, position.RelativeTop) = AngleToPoints(currentAngle, 0.5f);
 
         position.RelativeLeft += Math.Abs(quadrantPositionX);
         position.RelativeTop += Math.Abs(quadrantPositionY);
@@ -112,23 +112,23 @@ public static class TrainMovement
         }
     }
 
-    public static void MoveLeftDown(TrainPosition position) => TrainMovement.MoveAroundCorner(position, 0, -1, 135, 315, 270, 360);
+    public static void MoveLeftDown(TrainPosition position) => MoveAroundCorner(position, 0, -1, 135, 315, 270, 360);
 
-    public static void MoveRightDown(TrainPosition position) => TrainMovement.MoveAroundCorner(position, -1, -1, 45, 225, 180, 270);
+    public static void MoveRightDown(TrainPosition position) => MoveAroundCorner(position, -1, -1, 45, 225, 180, 270);
 
-    public static void MoveRightUp(TrainPosition position) => TrainMovement.MoveAroundCorner(position, -1, 0, -45, 135, 90, 180);
+    public static void MoveRightUp(TrainPosition position) => MoveAroundCorner(position, -1, 0, -45, 135, 90, 180);
 
-    public static void MoveLeftUp(TrainPosition position) => TrainMovement.MoveAroundCorner(position, 0, 0, 225, 45, 0, 90);
+    public static void MoveLeftUp(TrainPosition position) => MoveAroundCorner(position, 0, 0, 225, 45, 0, 90);
 
     public static (double currentAngle, float distance) MoveCounterClockwise(double currentAngle, float distance, double minimumNewAngle)
     {
         if (currentAngle <= 0) currentAngle += Math.PI * 2.0;
 
-        double angleToMove = distance / Radius;
+        var angleToMove = distance / Radius;
 
         // If the angle to move is outside our limits, then only move as much as we can
 
-        double angleOver = currentAngle - angleToMove - minimumNewAngle;
+        var angleOver = currentAngle - angleToMove - minimumNewAngle;
 
         if (angleOver < -0.00001)
         {
@@ -152,9 +152,9 @@ public static class TrainMovement
     {
         if (currentAngle < 0) currentAngle += Math.PI * 2.0;
 
-        double angleToMove = distance / Radius;
+        var angleToMove = distance / Radius;
 
-        double angleOver = currentAngle + angleToMove - maximumNewAngle;
+        var angleOver = currentAngle + angleToMove - maximumNewAngle;
 
         if (angleOver > 0.00001)
         {
@@ -183,7 +183,7 @@ public static class TrainMovement
         if (position.Angle < 180f)
         {
             position.Angle = 90f;
-            float toGo = 1.0f - position.RelativeTop;
+            var toGo = 1.0f - position.RelativeTop;
 
             if (position.Distance < toGo)
             {
@@ -199,7 +199,7 @@ public static class TrainMovement
         else
         {
             position.Angle = 270f;
-            float toGo = position.RelativeTop;
+            var toGo = position.RelativeTop;
 
             if (position.Distance < toGo)
             {
@@ -223,7 +223,7 @@ public static class TrainMovement
         if (position.Angle < 90f || position.Angle > 270f)
         {
             position.Angle = 0f;
-            float toGo = 1.0f - position.RelativeLeft;
+            var toGo = 1.0f - position.RelativeLeft;
 
             if (position.Distance < toGo)
             {
@@ -239,7 +239,7 @@ public static class TrainMovement
         else
         {
             position.Angle = 180f;
-            float toGo = position.RelativeLeft;
+            var toGo = position.RelativeLeft;
 
             if (position.Distance < toGo)
             {
@@ -257,12 +257,12 @@ public static class TrainMovement
     public static IEnumerable<TrainPosition> GetNextSteps(ILayout layout, Train train, float distanceToMove)
     {
         TrainPosition? last = null;
-        float distance = distanceToMove;
+        var distance = distanceToMove;
         while (distance > 0.0f)
         {
-            TrainPosition position = last ?? train.GetPosition();
+            var position = last ?? train.GetPosition();
 
-            TrainPosition? newPosition = GetNextPosition(layout, position, distance);
+            var newPosition = GetNextPosition(layout, position, distance);
             if (newPosition != null)
             {
                 last = newPosition;
@@ -283,7 +283,7 @@ public static class TrainMovement
             return null;
         }
 
-        TrainPosition position = currentPosition.Clone();
+        var position = currentPosition.Clone();
         position.Distance = distance;
 
         track.Move(position);

@@ -32,10 +32,10 @@ public abstract class Track : IStaticEntity
         _ = _trackLayout ?? throw new InvalidOperationException("Game board can't be null");
 
         return new(
-            _trackLayout.TryGet(this.Column - 1, this.Row, out Track? left) ? left : null,
-            _trackLayout.TryGet(this.Column, this.Row - 1, out Track? up) ? up : null,
-            _trackLayout.TryGet(this.Column + 1, this.Row, out Track? right) ? right : null,
-            _trackLayout.TryGet(this.Column, this.Row + 1, out Track? down) ? down : null
+            _trackLayout.TryGet(Column - 1, Row, out Track? left) ? left : null,
+            _trackLayout.TryGet(Column, Row - 1, out Track? up) ? up : null,
+            _trackLayout.TryGet(Column + 1, Row, out Track? right) ? right : null,
+            _trackLayout.TryGet(Column, Row + 1, out Track? down) ? down : null
             );
     }
 
@@ -74,11 +74,11 @@ public abstract class Track : IStaticEntity
     }
 
     public bool CanConnectRight()
-        => !this.Happy || IsConnectedRight();
+        => !Happy || IsConnectedRight();
     public bool CanConnectDown()
-        => !this.Happy || IsConnectedDown();
+        => !Happy || IsConnectedDown();
     public bool CanConnectLeft()
-        => !this.Happy || IsConnectedLeft();
+        => !Happy || IsConnectedLeft();
     public bool CanConnectUp()
-        => !this.Happy || IsConnectedUp();
+        => !Happy || IsConnectedUp();
 }

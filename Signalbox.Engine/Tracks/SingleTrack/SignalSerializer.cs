@@ -20,7 +20,7 @@ public class SignalSerializer : IEntitySerializer
             return false;
         }
 
-        var track = new Signal()
+        var track = new Signal
         {
             Direction = Enum.Parse<SingleTrackDirection>(bits[1]),
             SignalState = Enum.Parse<SignalState>(bits[2]),

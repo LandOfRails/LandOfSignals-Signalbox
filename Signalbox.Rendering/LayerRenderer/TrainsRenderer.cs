@@ -3,7 +3,6 @@ using Signalbox.Engine.Trains;
 using Signalbox.Engine.Utilities;
 using Signalbox.Rendering.Drawing;
 using Signalbox.Rendering.LayerRenderer.Bases;
-using Signalbox.Rendering.Trains;
 
 namespace Signalbox.Rendering.LayerRenderer;
 

@@ -20,7 +20,7 @@ public class SingleTrackSerializer : IEntitySerializer
             return false;
         }
 
-        var track = new SingleTrack()
+        var track = new SingleTrack
         {
             Direction = Enum.Parse<SingleTrackDirection>(bits[1]),
             Happy = bool.Parse(bits[2])

@@ -2,7 +2,7 @@
 
 namespace Signalbox.Rendering.UIFramework;
 
-public abstract partial class ButtonPanelBase : PanelBase
+public abstract class ButtonPanelBase : PanelBase
 {
     private const int ButtonGap = 10;
     private const int ButtonLeft = 5;

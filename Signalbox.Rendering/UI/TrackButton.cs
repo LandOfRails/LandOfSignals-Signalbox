@@ -25,7 +25,7 @@ public class TrackButton : ButtonBase
         {
             if (renderer.ShouldRender(_track))
             {
-                float scale = 32 / 100.0f;
+                var scale = 32 / 100.0f;
                 using (canvas.Scope())
                 {
                     canvas.Translate(4, 4);

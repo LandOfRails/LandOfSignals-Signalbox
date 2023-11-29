@@ -25,15 +25,15 @@ public class MapRenderer : IMapRenderer
     {
         if (_imageCache.IsDirty(this))
         {
-            int width = _pixelMapper.Columns;
-            int _height = _pixelMapper.Rows;
+            var width = _pixelMapper.Columns;
+            var _height = _pixelMapper.Rows;
 
-            using IImageCanvas textureImage = _imageFactory.CreateImageCanvas(width, _height);
+            using var textureImage = _imageFactory.CreateImageCanvas(width, _height);
 
-            foreach (global::Signalbox.Engine.Map.Tile tile in _map)
+            foreach (var tile in _map)
             {
-                Color colour = GetTileColour(tile);
-                PaintBrush paint = GetPaint(colour);
+                var colour = GetTileColour(tile);
+                var paint = GetPaint(colour);
 
                 textureImage.Canvas.DrawRect(tile.Column, tile.Row, 1, 1, paint);
             }
@@ -52,5 +52,5 @@ public class MapRenderer : IMapRenderer
             Color = colour
         };
 
-    public static Color GetTileColour(global::Signalbox.Engine.Map.Tile tile) => string.IsNullOrWhiteSpace(tile.Content) ? Colors.Empty : Colors.Black;
+    public static Color GetTileColour(Tile tile) => string.IsNullOrWhiteSpace(tile.Content) ? Colors.Empty : Colors.Black;
 }

@@ -41,7 +41,7 @@ public class PointerTool : IDraggableTool, IAlternateDragTool
         }
         else
         {
-            if (_trackLayout.TryGet(column, row, out Track? track))
+            if (_trackLayout.TryGet(column, row, out var track))
             {
                 track.NextState();
             }

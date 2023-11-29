@@ -28,31 +28,31 @@ public class TIntersectionFactory : IStaticEntityFactory<Track>
 
         if (AreAllPresent(neighbours.Up, neighbours.Left, neighbours.Right))
         {
-            yield return new TIntersection() { Direction = TIntersectionDirection.LeftUp_RightUp, Style = TIntersectionStyle.CornerAndPrimary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.LeftUp_RightUp, Style = TIntersectionStyle.CornerAndSecondary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.LeftUp_RightUp, Style = TIntersectionStyle.StraightAndPrimary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.LeftUp_RightUp, Style = TIntersectionStyle.StraightAndSecondary };
+            yield return new TIntersection { Direction = TIntersectionDirection.LeftUp_RightUp, Style = TIntersectionStyle.CornerAndPrimary };
+            yield return new TIntersection { Direction = TIntersectionDirection.LeftUp_RightUp, Style = TIntersectionStyle.CornerAndSecondary };
+            yield return new TIntersection { Direction = TIntersectionDirection.LeftUp_RightUp, Style = TIntersectionStyle.StraightAndPrimary };
+            yield return new TIntersection { Direction = TIntersectionDirection.LeftUp_RightUp, Style = TIntersectionStyle.StraightAndSecondary };
         }
         if (AreAllPresent(neighbours.Up, neighbours.Left, neighbours.Down))
         {
-            yield return new TIntersection() { Direction = TIntersectionDirection.LeftDown_LeftUp, Style = TIntersectionStyle.CornerAndPrimary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.LeftDown_LeftUp, Style = TIntersectionStyle.CornerAndSecondary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.LeftDown_LeftUp, Style = TIntersectionStyle.StraightAndPrimary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.LeftDown_LeftUp, Style = TIntersectionStyle.StraightAndSecondary };
+            yield return new TIntersection { Direction = TIntersectionDirection.LeftDown_LeftUp, Style = TIntersectionStyle.CornerAndPrimary };
+            yield return new TIntersection { Direction = TIntersectionDirection.LeftDown_LeftUp, Style = TIntersectionStyle.CornerAndSecondary };
+            yield return new TIntersection { Direction = TIntersectionDirection.LeftDown_LeftUp, Style = TIntersectionStyle.StraightAndPrimary };
+            yield return new TIntersection { Direction = TIntersectionDirection.LeftDown_LeftUp, Style = TIntersectionStyle.StraightAndSecondary };
         }
         if (AreAllPresent(neighbours.Up, neighbours.Right, neighbours.Down))
         {
-            yield return new TIntersection() { Direction = TIntersectionDirection.RightUp_RightDown, Style = TIntersectionStyle.CornerAndPrimary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.RightUp_RightDown, Style = TIntersectionStyle.CornerAndSecondary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.RightUp_RightDown, Style = TIntersectionStyle.StraightAndPrimary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.RightUp_RightDown, Style = TIntersectionStyle.StraightAndSecondary };
+            yield return new TIntersection { Direction = TIntersectionDirection.RightUp_RightDown, Style = TIntersectionStyle.CornerAndPrimary };
+            yield return new TIntersection { Direction = TIntersectionDirection.RightUp_RightDown, Style = TIntersectionStyle.CornerAndSecondary };
+            yield return new TIntersection { Direction = TIntersectionDirection.RightUp_RightDown, Style = TIntersectionStyle.StraightAndPrimary };
+            yield return new TIntersection { Direction = TIntersectionDirection.RightUp_RightDown, Style = TIntersectionStyle.StraightAndSecondary };
         }
         if (AreAllPresent(neighbours.Down, neighbours.Left, neighbours.Right))
         {
-            yield return new TIntersection() { Direction = TIntersectionDirection.RightDown_LeftDown, Style = TIntersectionStyle.CornerAndPrimary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.RightDown_LeftDown, Style = TIntersectionStyle.CornerAndSecondary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.RightDown_LeftDown, Style = TIntersectionStyle.StraightAndPrimary };
-            yield return new TIntersection() { Direction = TIntersectionDirection.RightDown_LeftDown, Style = TIntersectionStyle.StraightAndSecondary };
+            yield return new TIntersection { Direction = TIntersectionDirection.RightDown_LeftDown, Style = TIntersectionStyle.CornerAndPrimary };
+            yield return new TIntersection { Direction = TIntersectionDirection.RightDown_LeftDown, Style = TIntersectionStyle.CornerAndSecondary };
+            yield return new TIntersection { Direction = TIntersectionDirection.RightDown_LeftDown, Style = TIntersectionStyle.StraightAndPrimary };
+            yield return new TIntersection { Direction = TIntersectionDirection.RightDown_LeftDown, Style = TIntersectionStyle.StraightAndSecondary };
         }
     }
 
@@ -71,26 +71,26 @@ public class TIntersectionFactory : IStaticEntityFactory<Track>
         {
             if (AreAllPresent(neighbours.Down, neighbours.Left, neighbours.Right))
             {
-                entity = new TIntersection() { Direction = TIntersectionDirection.RightDown_LeftDown };
+                entity = new TIntersection { Direction = TIntersectionDirection.RightDown_LeftDown };
             }
             else if (AreAllPresent(neighbours.Up, neighbours.Left, neighbours.Right))
             {
-                entity = new TIntersection() { Direction = TIntersectionDirection.LeftUp_RightUp };
+                entity = new TIntersection { Direction = TIntersectionDirection.LeftUp_RightUp };
             }
             else if (AreAllPresent(neighbours.Up, neighbours.Right, neighbours.Down))
             {
-                entity = new TIntersection() { Direction = TIntersectionDirection.RightUp_RightDown };
+                entity = new TIntersection { Direction = TIntersectionDirection.RightUp_RightDown };
             }
             else if (AreAllPresent(neighbours.Up, neighbours.Left, neighbours.Down))
             {
-                entity = new TIntersection() { Direction = TIntersectionDirection.LeftDown_LeftUp };
+                entity = new TIntersection { Direction = TIntersectionDirection.LeftDown_LeftUp };
             }
         }
         else if (neighbours.Count == 2 && allNeighbours.Count == 3)
         {
             if (neighbours.Up is not null && neighbours.Down is not null && allNeighbours.Left is SingleTrack.SingleTrack { Happy: false } singleTrack1)
             {
-                entity = new TIntersection() { Direction = TIntersectionDirection.LeftDown_LeftUp };
+                entity = new TIntersection { Direction = TIntersectionDirection.LeftDown_LeftUp };
                 if (singleTrack1.IsConnectedDown() && singleTrack1.GetAllNeighbors().Down is not null)
                 {
                     singleTrack1.Direction = SingleTrackDirection.RightDown;
@@ -106,7 +106,7 @@ public class TIntersectionFactory : IStaticEntityFactory<Track>
             }
             else if (neighbours.Up is not null && neighbours.Down is not null && allNeighbours.Right is SingleTrack.SingleTrack { Happy: false } singleTrack2)
             {
-                entity = new TIntersection() { Direction = TIntersectionDirection.RightUp_RightDown };
+                entity = new TIntersection { Direction = TIntersectionDirection.RightUp_RightDown };
                 if (singleTrack2.IsConnectedDown() && singleTrack2.GetAllNeighbors().Down is not null)
                 {
                     singleTrack2.Direction = SingleTrackDirection.LeftDown;
@@ -122,7 +122,7 @@ public class TIntersectionFactory : IStaticEntityFactory<Track>
             }
             else if (neighbours.Left is not null && neighbours.Right is not null && allNeighbours.Up is SingleTrack.SingleTrack { Happy: false } singleTrack3)
             {
-                entity = new TIntersection() { Direction = TIntersectionDirection.LeftUp_RightUp };
+                entity = new TIntersection { Direction = TIntersectionDirection.LeftUp_RightUp };
                 if (singleTrack3.IsConnectedLeft() && singleTrack3.GetAllNeighbors().Left is not null)
                 {
                     singleTrack3.Direction = SingleTrackDirection.LeftDown;
@@ -138,7 +138,7 @@ public class TIntersectionFactory : IStaticEntityFactory<Track>
             }
             else if (neighbours.Left is not null && neighbours.Right is not null && allNeighbours.Down is SingleTrack.SingleTrack { Happy: false } singleTrack4)
             {
-                entity = new TIntersection() { Direction = TIntersectionDirection.RightDown_LeftDown };
+                entity = new TIntersection { Direction = TIntersectionDirection.RightDown_LeftDown };
                 if (singleTrack4.IsConnectedLeft() && singleTrack4.GetAllNeighbors().Left is not null)
                 {
                     singleTrack4.Direction = SingleTrackDirection.LeftUp;

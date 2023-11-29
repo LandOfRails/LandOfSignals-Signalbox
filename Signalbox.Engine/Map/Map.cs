@@ -2,7 +2,6 @@
 using System.Collections.Immutable;
 using Signalbox.Engine.StateManager;
 using Signalbox.Engine.Storage;
-using Signalbox.Engine.Trains;
 using Signalbox.Engine.Utilities;
 
 namespace Signalbox.Engine.Map;
@@ -24,7 +23,7 @@ public class Map : IMap, IInitializeAsync, ISignalboxState
         Dictionary<(int x, int y), string>? defaultMap = DefaultGenerator.GenerateDefaultMap(_columns, _rows);
 
         ImmutableDictionary<(int, int), Tile>.Builder builder = ImmutableDictionary.CreateBuilder<(int, int), Tile>();
-        foreach ((int x, int y) coord in defaultMap.Keys)
+        foreach (var coord in defaultMap.Keys)
         {
             builder.Add(coord, new()
             {

@@ -49,7 +49,7 @@ public class InteractionManager : IInteractionManager
 
     public bool PointerRelease(int x, int y)
     {
-        (int column, int row) = _pixelMapper.ViewPortPixelsToCoords(x, y);
+        var (column, row) = _pixelMapper.ViewPortPixelsToCoords(x, y);
 
         if (_capturedHandler is null &&
             !_hasDragged &&
@@ -73,14 +73,15 @@ public class InteractionManager : IInteractionManager
 
     private bool HandleInteraction(int x, int y, PointerAction action)
     {
-        (int width, int height) = _signalbox.GetScreenSize();
+        var (width, height) = _signalbox.GetScreenSize();
 
         if (_capturedHandler != null)
         {
             _capturedHandler.HandlePointerAction(x, y, width, height, action);
             return true;
         }
-        else if (_capturedTool != null)
+
+        if (_capturedTool != null)
         {
             ExecuteTool(_capturedTool, x, y, action);
             return true;
@@ -90,7 +91,7 @@ public class InteractionManager : IInteractionManager
         {
             case PointerAction.Click:
             {
-                bool preHandled = false;
+                var preHandled = false;
                 foreach (var handler in _handler.Where(handler => handler.PreHandleNextClick && action is PointerAction.Click))
                 {
                     _capturedHandler = handler;
@@ -133,7 +134,7 @@ public class InteractionManager : IInteractionManager
 
     private bool ExecuteTool(ITool tool, int x, int y, PointerAction action)
     {
-        (int column, int row) = _pixelMapper.ViewPortPixelsToCoords(x, y);
+        var (column, row) = _pixelMapper.ViewPortPixelsToCoords(x, y);
 
         var inSameCell = (column == _lastToolColumn && row == _lastToolRow);
 

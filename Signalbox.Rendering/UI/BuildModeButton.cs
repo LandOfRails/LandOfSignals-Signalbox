@@ -5,7 +5,7 @@ namespace Signalbox.Rendering.UI;
 
 public class BuildModeButton : MultiButton
 {
-    public BuildModeButton(global::Signalbox.Engine.MainManager.ISignalboxManager signalboxManager)
+    public BuildModeButton(ISignalboxManager signalboxManager)
         : base(34, GetButtons(signalboxManager))
     {
     }

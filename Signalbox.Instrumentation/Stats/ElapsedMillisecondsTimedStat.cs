@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Signalbox.Instrumentation.Stats;
 
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "Dispose is used to measure")]
+[SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "Dispose is used to measure")]
 public class ElapsedMillisecondsTimedStat : AveragedStat
 {
     private readonly Stopwatch _sw;
@@ -27,14 +28,14 @@ public class ElapsedMillisecondsTimedStat : AveragedStat
     }
     public override string GetDescription()
     {
-        if (this.Value == null)
+        if (Value == null)
         {
             return "null";
         }
-        if (this.Value < 0.01)
+        if (Value < 0.01)
         {
             return "< 0.01ms";
         }
-        return Math.Round(this.Value ?? 0, 2).ToString("0.00") + "ms";
+        return Math.Round(Value ?? 0, 2).ToString("0.00") + "ms";
     }
 }

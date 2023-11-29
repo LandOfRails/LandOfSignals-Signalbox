@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using DI;
+using Microsoft.AspNetCore.Components.Web;
 using Signalbox.Instrumentation;
 using Signalbox.Instrumentation.Stats;
 using Signalbox.Rendering.Signalbox;
@@ -19,8 +20,8 @@ public partial class Game
 
     protected override async Task OnInitializedAsync()
     {
-        _game = DI.ServiceLocator.GetService<ISignalbox>();
-        _interactionManager = DI.ServiceLocator.GetService<IInteractionManager>();
+        _game = ServiceLocator.GetService<ISignalbox>();
+        _interactionManager = ServiceLocator.GetService<IInteractionManager>();
 
         await _game.InitializeAsync(200, 200);
     }

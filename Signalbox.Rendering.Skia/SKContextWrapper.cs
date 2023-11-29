@@ -9,6 +9,6 @@ public class SKContextWrapper : IContext
 
     public SKContextWrapper(GRContext context)
     {
-        this.Context = context;
+        Context = context;
     }
 }

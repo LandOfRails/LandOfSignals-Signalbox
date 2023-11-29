@@ -1,6 +1,5 @@
 ﻿using Signalbox.Engine.Utilities;
 using Signalbox.Instrumentation;
-using Signalbox.Instrumentation.Stats;
 using Signalbox.Rendering.Drawing;
 using Signalbox.Rendering.UIFramework;
 
@@ -13,10 +12,10 @@ public class DiagnosticsPanel : PanelBase, ITogglable
 
     public bool Enabled
     {
-        get => this.Visible;
+        get => Visible;
         set
         {
-            this.Visible = value;
+            Visible = value;
             OnChanged();
         }
     }
@@ -32,13 +31,13 @@ public class DiagnosticsPanel : PanelBase, ITogglable
 
     public DiagnosticsPanel()
     {
-        this.Left = 10;
-        this.Visible = false;
+        Left = 10;
+        Visible = false;
     }
 
     protected override void PreRender(ICanvas canvas)
     {
-        this.Top = int.MaxValue;
+        Top = int.MaxValue;
     }
 
     protected override void Render(ICanvas canvas)
@@ -47,20 +46,20 @@ public class DiagnosticsPanel : PanelBase, ITogglable
 
         float maxWidth = 0;
         var strings = new List<string>();
-        foreach ((string name, IStat stat) in InstrumentationBag.Stats.OrderBy(i => i.Name))
+        foreach (var (name, stat) in InstrumentationBag.Stats.OrderBy(i => i.Name))
         {
             if (stat.ShouldShow())
             {
-                string line = name + ": " + stat.GetDescription();
+                var line = name + ": " + stat.GetDescription();
                 strings.Add(line);
                 maxWidth = Math.Max(maxWidth, canvas.MeasureText(line, Brushes.Label));
             }
         }
 
-        this.InnerWidth = (int)maxWidth;
-        this.InnerHeight = strings.Count * (lineHeight + LineGap);
+        InnerWidth = (int)maxWidth;
+        InnerHeight = strings.Count * (lineHeight + LineGap);
 
-        foreach (string line in strings)
+        foreach (var line in strings)
         {
             canvas.DrawText(line, 0, lineHeight, Brushes.Label);
             canvas.Translate(0, LineGap + lineHeight);

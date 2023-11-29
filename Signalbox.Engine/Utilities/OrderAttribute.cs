@@ -7,6 +7,6 @@ public sealed class OrderAttribute : Attribute
 
     public OrderAttribute(int order)
     {
-        this.Order = order;
+        Order = order;
     }
 }

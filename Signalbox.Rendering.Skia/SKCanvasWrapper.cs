@@ -14,15 +14,15 @@ public class SKCanvasWrapper : ICanvas
         IsDither = false
     };
 
-    private readonly SkiaSharp.SKCanvas _canvas;
+    private readonly SKCanvas _canvas;
 
-    public SKCanvasWrapper(SkiaSharp.SKCanvas canvas)
+    public SKCanvasWrapper(SKCanvas canvas)
     {
         _canvas = canvas;
     }
     private static SKPaint GetSKPaint(PaintBrush paint)
     {
-        if (!s_paintCache.TryGetValue(paint, out SKPaint? skPaint))
+        if (!s_paintCache.TryGetValue(paint, out var skPaint))
         {
             skPaint = paint.ToSkia();
             s_paintCache.Add(paint, skPaint);
@@ -46,7 +46,7 @@ public class SKCanvasWrapper : ICanvas
         var skPicture = picture.ToSkia();
 
         _canvas.Save();
-        float scaleFactor = size / Math.Max(skPicture.CullRect.Width, skPicture.CullRect.Height);
+        var scaleFactor = size / Math.Max(skPicture.CullRect.Width, skPicture.CullRect.Height);
         _canvas.Scale(scaleFactor, scaleFactor, x, y);
         _canvas.DrawPicture(picture.ToSkia());
         _canvas.Restore();

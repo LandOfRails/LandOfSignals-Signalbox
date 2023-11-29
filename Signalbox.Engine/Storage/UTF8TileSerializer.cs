@@ -1,26 +1,27 @@
 ﻿using System.Text;
+using Signalbox.Engine.Map;
 
 namespace Signalbox.Engine.Storage;
 
 public class UTF8TileSerializer : ITileSerializer
 {
-    public IEnumerable<Map.Tile> Deserialize(string[] lines)
+    public IEnumerable<Tile> Deserialize(string[] lines)
     {
-        var contentList = new List<Map.Tile>();
+        var contentList = new List<Tile>();
 
-        for (int r = 0; r < lines.Length; r++)
+        for (var r = 0; r < lines.Length; r++)
         {
-            string? line = lines[r];
+            var line = lines[r];
             string[]? heights = line.Split(',');
-            for (int c = 0; c < heights.Length; c++)
+            for (var c = 0; c < heights.Length; c++)
             {
 
-                if (!int.TryParse(heights[c], out int height))
+                if (!int.TryParse(heights[c], out var height))
                 {
                     throw new("Invalid height read from file");
                 }
 
-                contentList.Add(new Map.Tile
+                contentList.Add(new Tile
                 {
                     Row = r,
                     Column = c,
@@ -31,7 +32,7 @@ public class UTF8TileSerializer : ITileSerializer
         return contentList;
     }
 
-    public string Serialize(IEnumerable<Map.Tile> contentList)
+    public string Serialize(IEnumerable<Tile> contentList)
     {
         if (!contentList.Any()) return string.Empty;
 
@@ -39,15 +40,15 @@ public class UTF8TileSerializer : ITileSerializer
 
         var sb = new StringBuilder();
 
-        int maxColumn = contentList.Max(t => t.Column);
-        int maxRow = contentList.Max(t => t.Row);
+        var maxColumn = contentList.Max(t => t.Column);
+        var maxRow = contentList.Max(t => t.Row);
 
-        for (int r = 0; r <= maxRow; r++)
+        for (var r = 0; r <= maxRow; r++)
         {
             var contents = new List<string>();
-            for (int c = 0; c <= maxColumn; c++)
+            for (var c = 0; c <= maxColumn; c++)
             {
-                if (!dict.TryGetValue((c, r), out string content))
+                if (!dict.TryGetValue((c, r), out var content))
                 {
                     content = string.Empty;
                 }

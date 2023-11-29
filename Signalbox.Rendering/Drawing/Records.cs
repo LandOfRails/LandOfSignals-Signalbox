@@ -25,7 +25,8 @@ public record Color(int A, int R, int G, int B)
                 Convert.ToByte(htmlColor.Substring(3, 2), 16),
                 Convert.ToByte(htmlColor.Substring(5, 2), 16));
         }
-        else if (htmlColor.Length == 9)
+
+        if (htmlColor.Length == 9)
         {
             return new(
                 Convert.ToByte(htmlColor.Substring(1, 2), 16),

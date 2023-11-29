@@ -10,15 +10,15 @@ public class TIntersection : Track
 
     public TIntersectionDirection Direction { get; set; }
 
-    public override string Identifier => $"{this.Direction}.{this.Style}";
+    public override string Identifier => $"{Direction}.{Style}";
 
     public override void NextState()
     {
-        this.Style = this.Style + 1;
+        Style = Style + 1;
 
-        if (this.Style > TIntersectionStyle.StraightAndSecondary)
+        if (Style > TIntersectionStyle.StraightAndSecondary)
         {
-            this.Style = TIntersectionStyle.CornerAndPrimary;
+            Style = TIntersectionStyle.CornerAndPrimary;
         }
 
         OnChanged();
@@ -26,7 +26,7 @@ public class TIntersection : Track
 
     public override void Move(TrainPosition position)
     {
-        switch (this.Direction)
+        switch (Direction)
         {
             case TIntersectionDirection.RightUp_RightDown: MoveRightUp_RightDown(position); break;
             case TIntersectionDirection.RightDown_LeftDown: MoveRightDown_LeftDown(position); break;
@@ -37,7 +37,7 @@ public class TIntersection : Track
     }
 
     public override bool IsConnectedRight()
-        => this.Direction switch
+        => Direction switch
         {
             TIntersectionDirection.RightDown_LeftDown => true,
             TIntersectionDirection.LeftUp_RightUp => true,
@@ -46,7 +46,7 @@ public class TIntersection : Track
         };
 
     public override bool IsConnectedDown()
-        => this.Direction switch
+        => Direction switch
         {
             TIntersectionDirection.RightDown_LeftDown => true,
             TIntersectionDirection.LeftDown_LeftUp => true,
@@ -55,7 +55,7 @@ public class TIntersection : Track
         };
 
     public override bool IsConnectedLeft()
-        => this.Direction switch
+        => Direction switch
         {
             TIntersectionDirection.RightDown_LeftDown => true,
             TIntersectionDirection.LeftUp_RightUp => true,
@@ -64,7 +64,7 @@ public class TIntersection : Track
         };
 
     public override bool IsConnectedUp()
-        => this.Direction switch
+        => Direction switch
         {
             TIntersectionDirection.LeftDown_LeftUp => true,
             TIntersectionDirection.LeftUp_RightUp => true,
@@ -74,13 +74,13 @@ public class TIntersection : Track
 
     private void MoveRightDown_LeftDown(TrainPosition position)
     {
-        if (this.Style is TIntersectionStyle.StraightAndPrimary or TIntersectionStyle.StraightAndSecondary)
+        if (Style is TIntersectionStyle.StraightAndPrimary or TIntersectionStyle.StraightAndSecondary)
         {
             if (position.Angle is 0 or 180)
             {
                 TrainMovement.MoveHorizontal(position);
             }
-            else if (this.Style is TIntersectionStyle.StraightAndPrimary)
+            else if (Style is TIntersectionStyle.StraightAndPrimary)
             {
                 TrainMovement.MoveLeftDown(position);
             }
@@ -103,7 +103,7 @@ public class TIntersection : Track
         }
         else
         {
-            if (this.Style is TIntersectionStyle.CornerAndSecondary)
+            if (Style is TIntersectionStyle.CornerAndSecondary)
             {
                 TrainMovement.MoveLeftDown(position);
             }
@@ -116,13 +116,13 @@ public class TIntersection : Track
 
     private void MoveLeftDown_LeftUp(TrainPosition position)
     {
-        if (this.Style is TIntersectionStyle.StraightAndPrimary or TIntersectionStyle.StraightAndSecondary)
+        if (Style is TIntersectionStyle.StraightAndPrimary or TIntersectionStyle.StraightAndSecondary)
         {
             if (position.Angle is 90 or 270)
             {
                 TrainMovement.MoveVertical(position);
             }
-            else if (this.Style is TIntersectionStyle.StraightAndPrimary)
+            else if (Style is TIntersectionStyle.StraightAndPrimary)
             {
                 TrainMovement.MoveLeftUp(position);
             }
@@ -145,7 +145,7 @@ public class TIntersection : Track
         }
         else
         {
-            if (this.Style == TIntersectionStyle.CornerAndSecondary)
+            if (Style == TIntersectionStyle.CornerAndSecondary)
             {
                 TrainMovement.MoveLeftUp(position);
             }
@@ -158,13 +158,13 @@ public class TIntersection : Track
 
     private void MoveLeftUp_RightUp(TrainPosition position)
     {
-        if (this.Style is TIntersectionStyle.StraightAndPrimary or TIntersectionStyle.StraightAndSecondary)
+        if (Style is TIntersectionStyle.StraightAndPrimary or TIntersectionStyle.StraightAndSecondary)
         {
             if (position.Angle is 0 or 180)
             {
                 TrainMovement.MoveHorizontal(position);
             }
-            else if (this.Style is TIntersectionStyle.StraightAndPrimary)
+            else if (Style is TIntersectionStyle.StraightAndPrimary)
             {
                 TrainMovement.MoveRightUp(position);
             }
@@ -187,7 +187,7 @@ public class TIntersection : Track
         }
         else
         {
-            if (this.Style == TIntersectionStyle.CornerAndSecondary)
+            if (Style == TIntersectionStyle.CornerAndSecondary)
             {
                 TrainMovement.MoveRightUp(position);
             }
@@ -200,13 +200,13 @@ public class TIntersection : Track
 
     private void MoveRightUp_RightDown(TrainPosition position)
     {
-        if (this.Style is TIntersectionStyle.StraightAndPrimary or TIntersectionStyle.StraightAndSecondary)
+        if (Style is TIntersectionStyle.StraightAndPrimary or TIntersectionStyle.StraightAndSecondary)
         {
             if (position.Angle is 90 or 270)
             {
                 TrainMovement.MoveVertical(position);
             }
-            else if (this.Style is TIntersectionStyle.StraightAndPrimary)
+            else if (Style is TIntersectionStyle.StraightAndPrimary)
             {
                 TrainMovement.MoveRightDown(position);
             }
@@ -229,7 +229,7 @@ public class TIntersection : Track
         }
         else
         {
-            if (this.Style == TIntersectionStyle.CornerAndSecondary)
+            if (Style == TIntersectionStyle.CornerAndSecondary)
             {
                 TrainMovement.MoveRightDown(position);
             }

@@ -1,20 +1,20 @@
-﻿using System.Collections.Immutable;
+﻿using System.Collections;
+using System.Collections.Immutable;
 using Signalbox.Engine.MainManager;
 using Signalbox.Engine.StateManager;
 using Signalbox.Engine.Storage;
 using Signalbox.Engine.Tracks;
 using Signalbox.Engine.Trains;
-using IMovable = Signalbox.Engine.Trains.IMovable;
 
 namespace Signalbox.Engine.Entity;
 
 public class MovableLayout : IMovableLayout, ISignalboxState, ISignalboxStep
 {
     private ImmutableList<IMovable> _movables = ImmutableList<IMovable>.Empty;
-    private Dictionary<Track, (Trains.Train, float)> _lastTrackLeases = new();
+    private Dictionary<Track, (Train, float)> _lastTrackLeases = new();
     private readonly ILayout _layout;
     private readonly IEntityCollectionSerializer _gameSerializer;
-    private readonly Trains.Train _reservedTrain;
+    private readonly Train _reservedTrain;
 
     public int Count => _movables.Count;
 
@@ -30,7 +30,7 @@ public class MovableLayout : IMovableLayout, ISignalboxState, ISignalboxStep
     public int IndexOf(IMovable movable)
         => _movables.IndexOf(movable);
 
-    public IEnumerable<(Track, Trains.Train, float)> LastTrackLeases => _lastTrackLeases.Select(kvp => (kvp.Key, kvp.Value.Item1, kvp.Value.Item2));
+    public IEnumerable<(Track, Train, float)> LastTrackLeases => _lastTrackLeases.Select(kvp => (kvp.Key, kvp.Value.Item1, kvp.Value.Item2));
 
     public void Add(IMovable movable)
         => _movables = _movables.Add(movable);
@@ -89,6 +89,6 @@ public class MovableLayout : IMovableLayout, ISignalboxState, ISignalboxStep
     public IEnumerator<IMovable> GetEnumerator()
         => _movables.GetEnumerator();
 
-    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+    IEnumerator IEnumerable.GetEnumerator()
         => _movables.GetEnumerator();
 }

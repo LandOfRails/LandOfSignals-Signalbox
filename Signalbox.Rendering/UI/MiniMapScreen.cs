@@ -62,7 +62,7 @@ public class MiniMapScreen : IScreen, IInteractionHandler, ITogglable
 
     public bool HandlePointerAction(int x, int y, int width, int height, PointerAction action)
     {
-        if (!this.Enabled)
+        if (!Enabled)
         {
             return false;
         }
@@ -94,7 +94,7 @@ public class MiniMapScreen : IScreen, IInteractionHandler, ITogglable
 
     public void Render(ICanvas canvas, int width, int height)
     {
-        if (!this.Enabled)
+        if (!Enabled)
         {
             return;
         }
@@ -103,13 +103,13 @@ public class MiniMapScreen : IScreen, IInteractionHandler, ITogglable
 
         canvas.DrawImage(_mapRenderer.GetMapImage(), 0, 0);
 
-        foreach (Track track in _trackLayout)
+        foreach (var track in _trackLayout)
         {
             canvas.DrawRect(track.Column, track.Row, 1, 1, _paint);
         }
 
-        (int left, int top) = _pixelMapper.ViewPortPixelsToCoords(0, 0);
-        (int right, int bottom) = _pixelMapper.ViewPortPixelsToCoords(_pixelMapper.ViewPortWidth, _pixelMapper.ViewPortHeight);
+        var (left, top) = _pixelMapper.ViewPortPixelsToCoords(0, 0);
+        var (right, bottom) = _pixelMapper.ViewPortPixelsToCoords(_pixelMapper.ViewPortWidth, _pixelMapper.ViewPortHeight);
 
         canvas.DrawRect(left, top, right - left, bottom - top, _viewPortPaint);
 

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using Signalbox.Engine.Entity;
 
 namespace Signalbox.Engine.Storage;
@@ -12,12 +13,12 @@ public class EntityCollectionSerializer : IEntityCollectionSerializer
         _serializers = serializer;
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
+    [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
     public IEnumerable<IEntity> Deserialize(string lines)
     {
         List<IEntity> entities = new();
 
-        foreach (var line in lines.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries))
+        foreach (var line in lines.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries))
         {
             string[] bits = line.Split('|', 3);
             foreach (var serializer in _serializers)
@@ -44,7 +45,7 @@ public class EntityCollectionSerializer : IEntityCollectionSerializer
     {
         StringBuilder sb = new();
 
-        foreach (IEntity entity in entities)
+        foreach (var entity in entities)
         {
             foreach (var serializer in _serializers)
             {

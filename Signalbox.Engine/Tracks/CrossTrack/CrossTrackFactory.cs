@@ -44,7 +44,7 @@ public class CrossTrackFactory : IStaticEntityFactory<Track>
             neighbours = TrackNeighbors.GetConnectedNeighbours(_layout, column - 1, row);
             if (neighbours.Count == 3 && neighbours.Right is null)
             {
-                entity = new SingleTrack.SingleTrack() { Direction = SingleTrackDirection.Horizontal };
+                entity = new SingleTrack.SingleTrack { Direction = SingleTrackDirection.Horizontal };
                 _layout.Set(column - 1, row, new CrossTrack());
                 return true;
             }
@@ -52,7 +52,7 @@ public class CrossTrackFactory : IStaticEntityFactory<Track>
             neighbours = TrackNeighbors.GetConnectedNeighbours(_layout, column, row - 1);
             if (neighbours.Count == 3 && neighbours.Down is null)
             {
-                entity = new SingleTrack.SingleTrack() { Direction = SingleTrackDirection.Vertical };
+                entity = new SingleTrack.SingleTrack { Direction = SingleTrackDirection.Vertical };
                 _layout.Set(column, row - 1, new CrossTrack());
                 return true;
             }
@@ -60,7 +60,7 @@ public class CrossTrackFactory : IStaticEntityFactory<Track>
             neighbours = TrackNeighbors.GetConnectedNeighbours(_layout, column + 1, row);
             if (neighbours.Count == 3 && neighbours.Left is null)
             {
-                entity = new SingleTrack.SingleTrack() { Direction = SingleTrackDirection.Horizontal };
+                entity = new SingleTrack.SingleTrack { Direction = SingleTrackDirection.Horizontal };
                 _layout.Set(column + 1, row, new CrossTrack());
                 return true;
             }
@@ -68,7 +68,7 @@ public class CrossTrackFactory : IStaticEntityFactory<Track>
             neighbours = TrackNeighbors.GetConnectedNeighbours(_layout, column, row + 1);
             if (neighbours.Count == 3 && neighbours.Up is null)
             {
-                entity = new SingleTrack.SingleTrack() { Direction = SingleTrackDirection.Vertical };
+                entity = new SingleTrack.SingleTrack { Direction = SingleTrackDirection.Vertical };
                 _layout.Set(column, row + 1, new CrossTrack());
                 return true;
             }

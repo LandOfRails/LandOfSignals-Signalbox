@@ -1,7 +1,9 @@
-﻿namespace Signalbox.Engine.Storage;
+﻿using Signalbox.Engine.Map;
+
+namespace Signalbox.Engine.Storage;
 
 public interface ITileSerializer
 {
-    IEnumerable<Map.Tile> Deserialize(string[] lines);
-    string Serialize(IEnumerable<Map.Tile> contentList);
+    IEnumerable<Tile> Deserialize(string[] lines);
+    string Serialize(IEnumerable<Tile> contentList);
 }

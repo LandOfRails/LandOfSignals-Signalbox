@@ -20,7 +20,7 @@ public class TIntersectionSerializer : IEntitySerializer
             return false;
         }
 
-        var track = new TIntersection()
+        var track = new TIntersection
         {
             Direction = Enum.Parse<TIntersectionDirection>(bits[1]),
             Style = Enum.Parse<TIntersectionStyle>(bits[2]),

@@ -1,4 +1,5 @@
 using Blazored.LocalStorage;
+using DI;
 using LandOfSignals_Signalbox.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -13,7 +14,7 @@ builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new(builder.HostE
 
 var host = builder.Build();
 
-if (DI.ServiceLocator.GetService<ISignalboxStorage>() is BlazorGameStorage storage)
+if (ServiceLocator.GetService<ISignalboxStorage>() is BlazorGameStorage storage)
 {
     storage.AspNetCoreServices = host.Services;
 }

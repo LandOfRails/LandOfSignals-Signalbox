@@ -21,7 +21,7 @@ public class TrainRenderer : IRenderer<Train>
     {
         SetupCanvasToDrawTrain(canvas, train);
         var shouldHighlight = _trainManager.CurrentTrain == train;
-        TrainPalette? palette = _trainPainter.GetPalette(train);
+        var palette = _trainPainter.GetPalette(train);
 
         RenderTrain(canvas, palette, _trainParameters, shouldHighlight);
     }
@@ -42,7 +42,7 @@ public class TrainRenderer : IRenderer<Train>
             StrokeWidth = trainParameters.StrokeWidth
         };
 
-        float startPos = -((trainParameters.HeadWidth + trainParameters.RearWidth) / 2);
+        var startPos = -((trainParameters.HeadWidth + trainParameters.RearWidth) / 2);
 
         canvas.DrawGradientRect(startPos,
                         -(trainParameters.RearHeight / 2),
@@ -73,8 +73,8 @@ public class TrainRenderer : IRenderer<Train>
 
     public static void SetupCanvasToDrawTrain(ICanvas canvas, IMovable train)
     {
-        float x = 100 * train.RelativeLeft;
-        float y = 100 * train.RelativeTop;
+        var x = 100 * train.RelativeLeft;
+        var y = 100 * train.RelativeTop;
         canvas.Translate(x, y);
         canvas.RotateDegrees(train.Angle);
     }

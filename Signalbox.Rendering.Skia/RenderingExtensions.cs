@@ -1,4 +1,5 @@
 ﻿using Signalbox.Rendering.Drawing;
+using Signalbox.Rendering.Skia.Assets;
 using Signalbox.Rendering.UIFramework;
 using SkiaSharp;
 
@@ -9,19 +10,19 @@ public static class RenderingExtensions
     public static SKPicture ToSkia(this Picture picture)
         => picture switch
         {
-            Picture.Left => Assets.Svg_caret_left.Picture,
-            Picture.Right => Assets.Svg_caret_right.Picture,
-            Picture.Backward => Assets.Svg_backward.Picture,
-            Picture.Forward => Assets.Svg_forward.Picture,
-            Picture.Eye => Assets.Svg_eye.Picture,
-            Picture.Trash => Assets.Svg_trash_alt.Picture,
-            Picture.Play => Assets.Svg_play.Picture,
-            Picture.Pause => Assets.Svg_pause.Picture,
-            Picture.Cross => Assets.Svg_times.Picture,
-            Picture.Tools => Assets.Svg_tools.Picture,
-            Picture.Eraser => Assets.Svg_eraser.Picture,
-            Picture.Plus => Assets.Svg_plus_square.Picture,
-            Picture.Minus => Assets.Svg_minus_square.Picture,
+            Picture.Left => Svg_caret_left.Picture,
+            Picture.Right => Svg_caret_right.Picture,
+            Picture.Backward => Svg_backward.Picture,
+            Picture.Forward => Svg_forward.Picture,
+            Picture.Eye => Svg_eye.Picture,
+            Picture.Trash => Svg_trash_alt.Picture,
+            Picture.Play => Svg_play.Picture,
+            Picture.Pause => Svg_pause.Picture,
+            Picture.Cross => Svg_times.Picture,
+            Picture.Tools => Svg_tools.Picture,
+            Picture.Eraser => Svg_eraser.Picture,
+            Picture.Plus => Svg_plus_square.Picture,
+            Picture.Minus => Svg_minus_square.Picture,
             _ => throw new InvalidOperationException($"No idea what picture you want me to draw: {picture}")
         };
 

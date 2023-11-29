@@ -10,11 +10,11 @@ public class BlazorGameStorage : ISignalboxStorage
 
     public IServiceProvider? AspNetCoreServices { get; set; }
 
-    private ISyncLocalStorageService? SyncLocalStorageService => (_syncLocalStorageService ??= this.AspNetCoreServices?.GetService<ISyncLocalStorageService>());
+    private ISyncLocalStorageService? SyncLocalStorageService => (_syncLocalStorageService ??= AspNetCoreServices?.GetService<ISyncLocalStorageService>());
 
     public string? Read(string key)
     {
-        var data = this.SyncLocalStorageService?.GetItemAsString(key);
+        var data = SyncLocalStorageService?.GetItemAsString(key);
         return data;
     }
 
@@ -24,7 +24,7 @@ public class BlazorGameStorage : ISignalboxStorage
         if (!valueExists || previousValue != value)
         {
             _lastSavedValue[key] = value;
-            this.SyncLocalStorageService?.SetItemAsString(key, value);
+            SyncLocalStorageService?.SetItemAsString(key, value);
         }
     }
 }

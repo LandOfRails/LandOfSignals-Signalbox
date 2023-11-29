@@ -22,14 +22,14 @@ public class PerSecondTimedStat : AveragedStat
 
     public override string GetDescription()
     {
-        if (this.Value == null)
+        if (Value == null)
         {
             return "null";
         }
-        if (this.Value < 0.01)
+        if (Value < 0.01)
         {
             return "< 0.01";
         }
-        return Math.Round(this.Value ?? 0, 2).ToString();
+        return Math.Round(Value ?? 0, 2).ToString();
     }
 }
